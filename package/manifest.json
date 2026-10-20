@@ -1,0 +1,11 @@
+{
+  "name": "BagOHeim",
+  "author": "Svaha",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/mattbaya/BagOHeim",
+  "description": "Bag O' Heim: packs that always hold the same things (potions, food, arrows, portal kits or anything you like) and refill from your base's chests.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2351",
+    "ValheimModding-Jotunn-2.30.2"
+  ]
+}

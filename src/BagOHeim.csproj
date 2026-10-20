@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>BackPackHeim</AssemblyName>
-    <RootNamespace>BackPackHeim</RootNamespace>
+    <AssemblyName>BagOHeim</AssemblyName>
+    <RootNamespace>BagOHeim</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -27,6 +27,10 @@
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.4.21" PrivateAssets="all" />
     <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/*.png" LogicalName="BagOHeim.%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,6 +65,10 @@
       <HintPath>$(ValheimManaged)/UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(ValheimManaged)/UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>$(ValheimManaged)/UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>false</Private>
@@ -75,6 +83,10 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(ValheimManaged)/UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(ValheimManaged)/Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
