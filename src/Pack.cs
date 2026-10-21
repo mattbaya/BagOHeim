@@ -157,7 +157,7 @@ namespace BagOHeim
 
         // ---------------------------------------------------------------- targets
 
-        /// <summary>What the pack refills to. A Bag O' Portals defaults to two portals' worth.</summary>
+        /// <summary>What the pack refills to. A Bag O' Portals defaults to two portals' worth plus wood for a workbench.</summary>
         public List<PackTarget> Targets
         {
             get
@@ -165,7 +165,12 @@ namespace BagOHeim
                 if (Item.m_customData.TryGetValue(TargetsKey, out var s))
                     return Parse(s);
                 if (Kind == PackKind.Portals)
-                    return PackKinds.PortalCost().Select(c => new PackTarget { Prefab = c.prefab, Amount = c.amount * 2 }).ToList();
+                {
+                    var preset = PackKinds.PortalCost().Select(c => new PackTarget { Prefab = c.prefab, Amount = c.amount * 2 }).ToList();
+                    int wood = BagOHeimPlugin.PortalBagWood.Value;
+                    if (wood > 0) preset.Add(new PackTarget { Prefab = PackKinds.WorkbenchWood, Amount = wood });
+                    return preset;
+                }
                 return new List<PackTarget>();
             }
             set

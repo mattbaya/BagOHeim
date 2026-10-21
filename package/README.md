@@ -1,6 +1,6 @@
 # Bag O' Heim
 
-**Packs that always hold the same things.** Tell a pack what it should contain: potions, food, arrows, two portals' worth of materials, or anything you like. Click **Refill** and it tops itself up, from your inventory and from the chests in your base.
+**Packs that always hold the same things.** Tell a pack what it should contain: potions, food, arrows, two portals' worth of materials (and the wood for a workbench), or anything you like. Click **Refill** and it tops itself up, from your inventory and from the chests in your base.
 
 No more counting arrows into a quiver or hunting for the mead before you leave. Grab your *Bag O' Potions*, press **K** in your base, and it's full again.
 
@@ -24,7 +24,7 @@ No more counting arrows into a quiver or hunting for the mead before you leave. 
 | **Bag O' Potions** | potions and meads | 6 Leather scraps, 2 Deer hide, 2 Resin |
 | **Bag O' Lunch** | food | 6 Wood, 2 Leather scraps |
 | **Bag O' Arrows** | arrows and bolts | 4 Deer hide, 4 Leather scraps, 2 Wood |
-| **Bag O' Portals** | portal materials, preset to **two portals' worth** | 4 Deer hide, 4 Leather scraps, 2 Greydwarf eyes |
+| **Bag O' Portals** | portal materials, preset to **two portals' worth** plus **20 Wood** for a workbench | 4 Deer hide, 4 Leather scraps, 2 Greydwarf eyes |
 | **Bag O' Stuff** | anything | 6 Deer hide, 8 Leather scraps |
 
 Each pack looks like a backpack with the game's own icon on it, like an iron-on patch (a mead, cooked meat, an arrow, a portal, a chest). A small icon of what's inside shows in the corner of its slot, along with how full it is (e.g. `18/20`).
@@ -61,7 +61,7 @@ If something can't be filled, you're told what's missing. Packs only take from c
 
 **Lunch for the expedition.** *Bag O' Lunch* with 10 Cooked meat, 10 Queen's jam and a few Honey sticks. Set it once; refill it every trip.
 
-**Build a portal anywhere.** *Bag O' Portals* is preset to two portals' worth of materials. Carry one, pop up a portal at the far end of your trip, and you've got a way home. (With **PortalHeim SG1** you can then dial it from any gate.)
+**Build a portal anywhere.** *Bag O' Portals* is preset to two portals' worth of materials and 20 Wood, which is enough to knock up the workbench a portal has to be built near. Carry one, build a workbench and a portal at the far end of your trip, and you've got a way home. (With **PortalHeim SG1** you can then dial it from any gate.)
 
 **Your own named pack.** Use a *Bag O' Stuff* as a *Bag O' Fishing* or a *Bag O' Cultivation*: rename it, fill it, remember the amounts. It refills just like the others. Leave the name empty to go back to the default.
 
@@ -85,6 +85,7 @@ If something can't be filled, you're told what's missing. Packs only take from c
 | Packs | NamingStyle | BagO | `Plain` = Potion Pack, Lunchbox, Quiver, Portal Bag, Backpack |
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
+| Packs | PortalBagWood | 20 | Wood a Bag O' Portals holds for building a workbench (0 = none) |
 | Refill | RefillKey | K | |
 | Refill | TakeFromInventory | true | Refill also uses matching items from your own inventory (never what you're wearing) |
 | Refill | AutoRefillOnEnteringBase | false | |

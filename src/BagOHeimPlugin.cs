@@ -35,6 +35,7 @@ namespace BagOHeim
         internal static ConfigEntry<KeyboardShortcut> RefillKey;
         internal static ConfigEntry<bool> AutoRefill;
         internal static ConfigEntry<bool> TakeFromInventory;
+        internal static ConfigEntry<int> PortalBagWood;
 
         private Harmony _harmony;
         private float _nextAutoCheck;
@@ -56,6 +57,9 @@ namespace BagOHeim
             WeightFactor = Config.Bind("Packs", "ContentsWeight", 0.5f,
                 new ConfigDescription("How much a pack's contents count toward carry weight: 1 = full weight, 0.5 = half, 0 = weightless.",
                     new AcceptableValueRange<float>(0f, 1f)));
+            PortalBagWood = Config.Bind("Packs", "PortalBagWood", 20,
+                new ConfigDescription("How much Wood a Bag O' Portals holds, so you can build the workbench a portal needs to be built near (0 = none). " +
+                    "Applies to Portal bags you haven't set amounts for yourself.", new AcceptableValueRange<int>(0, 200)));
             Naming = Config.Bind("Packs", "NamingStyle", NamingStyle.BagO,
                 "Default pack names. BagO = Bag O' Potions, Bag O' Lunch, Bag O' Arrows, Bag O' Portals, Bag O' Stuff. " +
                 "Plain = Potion Pack, Lunchbox, Quiver, Portal Bag, Backpack. Packs you've renamed keep their name. " +

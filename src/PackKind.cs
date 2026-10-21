@@ -61,7 +61,7 @@ namespace BagOHeim
             new Info
             {
                 Kind = PackKind.Portals, Prefab = "BOH_PortalBag", BagOLabel = "Bag O' Portals", PlainLabel = "Portal Bag", IconPrefab = "portal_wood",
-                Description = "Holds what it takes to build two portals, and refills it from your base's chests.",
+                Description = "Holds what it takes to build two portals, plus wood for a workbench, and refills it from your inventory and your base's chests.",
                 Recipe = new[] { ("DeerHide", 4), ("LeatherScraps", 4), ("GreydwarfEye", 2) },
             },
             new Info
@@ -96,7 +96,7 @@ namespace BagOHeim
                 case PackKind.Potions:
                     return shared.m_itemType == ItemDrop.ItemData.ItemType.Consumable && !food;
                 case PackKind.Portals:
-                    return item.m_dropPrefab != null && PortalCost().Any(c => c.prefab == item.m_dropPrefab.name);
+                    return item.m_dropPrefab != null && (item.m_dropPrefab.name == WorkbenchWood || PortalCost().Any(c => c.prefab == item.m_dropPrefab.name));
                 default:
                     return true;
             }
@@ -109,12 +109,14 @@ namespace BagOHeim
                 case PackKind.Quiver: return "This pack only holds arrows and bolts.";
                 case PackKind.Lunchbox: return "This pack only holds food.";
                 case PackKind.Potions: return "This pack only holds potions and meads.";
-                case PackKind.Portals: return "This pack only holds portal materials.";
+                case PackKind.Portals: return "This pack only holds portal materials and wood.";
                 default: return "Packs can't go inside other packs.";
             }
         }
 
         private const string PortalPrefab = "portal_wood";
+        /// <summary>A portal can only be built near a workbench, so the Portal bag also carries wood to build one.</summary>
+        public const string WorkbenchWood = "Wood";
         private static List<(string prefab, int amount)> _portalCost;
 
         /// <summary>Materials for one portal, read from the game's own recipe.</summary>
