@@ -12,7 +12,7 @@ namespace BagOHeim
         {
             if (player == null) return;
             var area = BaseArea.For(player.transform.position);
-            if (!area.IsValid)
+            if (!area.IsValid && !BagOHeimPlugin.TakeFromInventory.Value)
             {
                 if (!quiet) Message(player, "You need to be in your base (near a workbench) to refill packs.");
                 return;
@@ -57,7 +57,16 @@ namespace BagOHeim
 
                 int room = Room(inventory, target.Prefab, shared.m_maxStackSize);
                 ItemDrop.ItemData template = null;
-                int got = room > 0 ? ChestSupply.Take(player, area, target.Prefab, Mathf.Min(need, room), out template) : 0;
+                int want = Mathf.Min(need, room);
+
+                // Your own inventory first, then whatever is still missing from chests in the base.
+                int got = want > 0 ? InventorySupply.Take(player, target.Prefab, want, out template) : 0;
+                if (got < want && area.IsValid)
+                {
+                    got += ChestSupply.Take(player, area, target.Prefab, want - got, out var fromChest);
+                    if (template == null) template = fromChest;
+                }
+
                 if (got > 0)
                 {
                     Add(inventory, target.Prefab, template, got);

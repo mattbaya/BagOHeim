@@ -19,7 +19,7 @@ namespace BagOHeim
     {
         public const string Guid = "mbaya.BagOHeim";
         public const string Name = "Bag O' Heim";
-        public const string Version = "1.0.0";
+        public const string Version = "1.1.0";
 
         private const string BasePrefab = "LeatherScraps";
         private const float AutoRefillCheckSeconds = 2f;
@@ -34,6 +34,7 @@ namespace BagOHeim
         internal static ConfigEntry<NamingStyle> Naming;
         internal static ConfigEntry<KeyboardShortcut> RefillKey;
         internal static ConfigEntry<bool> AutoRefill;
+        internal static ConfigEntry<bool> TakeFromInventory;
 
         private Harmony _harmony;
         private float _nextAutoCheck;
@@ -61,6 +62,9 @@ namespace BagOHeim
                 "Crafting menu names update on next game start.");
             RefillKey = Config.Bind("Refill", "RefillKey", new KeyboardShortcut(KeyCode.K),
                 "Refill every pack you're carrying from chests in your base.");
+            TakeFromInventory = Config.Bind("Refill", "TakeFromInventory", true,
+                "Refilling a pack also uses matching items from your own inventory (never what you're wearing or holding, and never other packs), " +
+                "so it works away from your base. Chests in your base are used for whatever is still missing.");
             AutoRefill = Config.Bind("Refill", "AutoRefillOnEnteringBase", false,
                 "Refill your packs automatically whenever you walk into your base.");
 

@@ -1,6 +1,6 @@
 # Bag O' Heim
 
-**Packs that always hold the same things.** Tell a pack what it should contain: potions, food, arrows, two portals' worth of materials, or anything you like. It refills itself from the chests in your base.
+**Packs that always hold the same things.** Tell a pack what it should contain: potions, food, arrows, two portals' worth of materials, or anything you like. Click **Refill** and it tops itself up, from your inventory and from the chests in your base.
 
 No more counting arrows into a quiver or hunting for the mead before you leave. Grab your *Bag O' Potions*, press **K** in your base, and it's full again.
 
@@ -36,15 +36,18 @@ Each pack looks like a backpack with the game's own icon on it, like an iron-on 
   - **Rename** the pack. Leave the name empty to go back to the default.
   - **Remember these amounts**: fill the pack the way you like it, click this, and that's what it refills to.
   - **Edit amounts** with − / + (hold Shift for ×10) or remove items. Search for items to add, even ones you don't have yet.
-  - **Refill now**.
+  - **Refill**: tops the pack up to what it's set to hold. A fresh **Bag O' Portals** refills to two portals' worth of materials.
 
 <!-- IMAGE: pack-window.png (an open Bag O' Potions with the amounts panel) -->
 
 ## Refilling
 
-Packs refill from **ordinary chests in your base**: the area covered by the workbench you're near, with overlapping workbenches counting as one base.
+A pack refills from two places, in this order:
 
-- Press **K** anywhere in your base to refill every pack you're carrying.
+1. **Your own inventory** (`Refill / TakeFromInventory`, on by default): matching items you're carrying. It never takes what you're wearing or holding, or other packs. This works anywhere, so you can refill a Bag O' Portals in the middle of nowhere if you're carrying the materials.
+2. **Ordinary chests in your base** for anything still missing: the area covered by the workbench you're near, with overlapping workbenches counting as one base.
+
+- Click **Refill** in an open pack to refill that pack, or press **K** to refill every pack you're carrying.
 - Or put a pack in a chest in your base and take it out again.
 - Optional: turn on `AutoRefillOnEnteringBase` to refill whenever you walk into your base (off by default).
 
@@ -83,6 +86,7 @@ If something can't be filled, you're told what's missing. Packs only take from c
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
 | Refill | RefillKey | K | |
+| Refill | TakeFromInventory | true | Refill also uses matching items from your own inventory (never what you're wearing) |
 | Refill | AutoRefillOnEnteringBase | false | |
 
 ## Troubleshooting

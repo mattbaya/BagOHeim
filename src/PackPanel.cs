@@ -8,7 +8,7 @@ namespace BagOHeim
 {
     /// <summary>
     /// The panel beside an open pack: name, refill amounts (edit, add, remove),
-    /// "Remember these amounts" and "Refill now".
+    /// "Remember these amounts" and "Refill".
     /// </summary>
     internal static class PackPanel
     {
@@ -112,12 +112,12 @@ namespace BagOHeim
                 pack.Save(inventory);
                 Rebuild();
             });
-            Button("Refill now", 120f, y, 150f, () =>
+            Button("Refill", 120f, y, 150f, () =>
             {
                 var player = Player.m_localPlayer;
                 var area = BaseArea.For(player.transform.position);
-                if (!area.IsValid) Refill.Message(player, "You need to be in your base (near a workbench) to refill packs.");
-                else if (!Refill.One(player, area, pack)) Refill.Message(player, "Nothing to add.");
+                if (!Refill.One(player, area, pack))
+                    Refill.Message(player, area.IsValid ? "Nothing to add." : "Nothing to add. Chests are only used inside your base (near a workbench).");
                 Rebuild();
             });
             y -= 46f;
