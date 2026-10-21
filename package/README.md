@@ -1,6 +1,23 @@
 # Bag O' Heim
 
-Packs that **always hold the same things**. Tell a pack what it should contain, and it refills itself from the chests in your base.
+**Packs that always hold the same things.** Tell a pack what it should contain: potions, food, arrows, two portals' worth of materials, or anything you like. It refills itself from the chests in your base.
+
+No more counting arrows into a quiver or hunting for the mead before you leave. Grab your *Bag O' Potions*, press **K** in your base, and it's full again.
+
+<!-- IMAGE: packs-in-inventory.png (the five packs in the inventory with their icons and fill counts) -->
+
+## Contents
+
+- [The packs](#the-packs)
+- [Using a pack](#using-a-pack)
+- [Refilling](#refilling)
+- [Examples](#examples)
+- [Good to know](#good-to-know)
+- [Configuration](#configuration)
+- [Troubleshooting](#troubleshooting)
+- [Works with](#works-with)
+
+## The packs
 
 | Pack | Holds | Made at a workbench from |
 | --- | --- | --- |
@@ -10,6 +27,8 @@ Packs that **always hold the same things**. Tell a pack what it should contain, 
 | **Bag O' Portals** | portal materials, preset to **two portals' worth** | 4 Deer hide, 4 Leather scraps, 2 Greydwarf eyes |
 | **Bag O' Stuff** | anything | 6 Deer hide, 8 Leather scraps |
 
+Each pack looks like a backpack with the game's own icon on it, like an iron-on patch (a mead, cooked meat, an arrow, a portal, a chest). A small icon of what's inside shows in the corner of its slot, along with how full it is (e.g. `18/20`).
+
 ## Using a pack
 
 - **Right-click** a pack in your inventory (or press its hotbar key) to open it. It opens like a chest: drag items in and out.
@@ -18,7 +37,8 @@ Packs that **always hold the same things**. Tell a pack what it should contain, 
   - **Remember these amounts**: fill the pack the way you like it, click this, and that's what it refills to.
   - **Edit amounts** with − / + (hold Shift for ×10) or remove items. Search for items to add, even ones you don't have yet.
   - **Refill now**.
-- Each pack looks like a backpack with the game's own icon on it, like an iron-on patch (a mead, cooked meat, an arrow, a portal, a chest). A small icon of what's inside shows in the corner of its slot, along with how full it is (e.g. `18/20`).
+
+<!-- IMAGE: pack-window.png (an open Bag O' Potions with the amounts panel) -->
 
 ## Refilling
 
@@ -30,11 +50,25 @@ Packs refill from **ordinary chests in your base**: the area covered by the work
 
 If something can't be filled, you're told what's missing. Packs only take from chests you could open yourself, and skip chests someone has open, gravestones, ships and carts.
 
+## Examples
+
+**A potion kit that's always ready.** Fill a *Bag O' Potions* with 4 Health mead, 4 Stamina mead and 2 Frost resistance mead, click **Remember these amounts**, and from then on **K** at home brings it back to exactly that, whatever you used.
+
+**A quiver you never count.** *Bag O' Arrows*: 60 Wood arrows, 20 Fire arrows, 20 Poison arrows. After a boss fight, walk into the base, press **K**, and it's full again from your arrow chest.
+
+**Lunch for the expedition.** *Bag O' Lunch* with 10 Cooked meat, 10 Queen's jam and a few Honey sticks. Set it once; refill it every trip.
+
+**Build a portal anywhere.** *Bag O' Portals* is preset to two portals' worth of materials. Carry one, pop up a portal at the far end of your trip, and you've got a way home. (With **PortalHeim SG1** you can then dial it from any gate.)
+
+**Your own named pack.** Use a *Bag O' Stuff* as a *Bag O' Fishing* or a *Bag O' Cultivation*: rename it, fill it, remember the amounts. It refills just like the others. Leave the name empty to go back to the default.
+
+**Plain names instead.** Set `Packs / NamingStyle` to `Plain` and the packs become Potion Pack, Lunchbox, Quiver, Portal Bag and Backpack.
+
 ## Good to know
 
 - A pack's contents count toward your carry weight at **half weight** by default (configurable from full weight to weightless).
 - Packs can't go inside other packs.
-- A pack holding ore or anything else portals don't allow blocks portals, just as carrying the item would.
+- A pack holding ore or anything else portals don't allow blocks portals, just as carrying the item would. (**PortalHeim SG1** lifts that limit.)
 - **Install on the server as well as every client.** Packs are new items, and a server without the mod removes items it doesn't recognise.
 
 ## Configuration
@@ -50,3 +84,18 @@ If something can't be filled, you're told what's missing. Packs only take from c
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
 | Refill | RefillKey | K | |
 | Refill | AutoRefillOnEnteringBase | false | |
+
+## Troubleshooting
+
+- **The packs aren't in the workbench menu.** Check the mod is in the profile you launch from and you're at a workbench; the recipes are under the workbench's crafting list.
+- **K says something is missing.** That item isn't in a chest in your base. Check that it's inside the base's workbench range, or set `RangeMode` to `Distance` with a larger `Range`.
+- **It didn't take from a chest.** It only uses chests you could open yourself, and skips ones someone has open, gravestones, ships and carts.
+- **A pack won't hold an item.** Packs can't hold other packs. Anything else goes in a *Bag O' Stuff*.
+- **I can't go through a portal.** A pack holding ore (or another item the game keeps out) blocks portals. Take it out, or install **PortalHeim SG1**.
+- **The server removes my packs.** The server needs the mod too, with the same version.
+- **Something else.** Open an issue at [github.com/mattbaya/BagOHeim](https://github.com/mattbaya/BagOHeim) and attach `BepInEx/LogOutput.log`.
+
+## Works with
+
+- **[GearHeim](https://thunderstore.io/c/valheim/p/Svaha/GearHeim/)**: loadouts for your gear, packs for your supplies. Both use "your base" the same way and refill from the same chests.
+- **[PortalHeim SG1](https://thunderstore.io/c/valheim/p/Svaha/PortalHeim_SG1/)**: Bag O' Portals plus a ring gate that you can dial from anywhere.
