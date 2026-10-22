@@ -53,11 +53,17 @@ A pack refills from two places, in this order:
 
 If something can't be filled, you're told what's missing. Packs only take from chests you could open yourself, and skip chests someone has open, gravestones, ships and carts.
 
+## Shooting from a pack
+
+You don't have to take arrows out by hand. **A bow or crossbow uses the arrows in any pack you're carrying**: the game only looks for ammo in your inventory, so when you start to draw or shoot and have none there, a stack of matching arrows or bolts moves out of your pack into your inventory (a message says what was taken), and you shoot as normal. Arrows that are already in your inventory are used first.
+
+The arrows you take out stay in your inventory until you put them back: press **K** or click **Refill** and any spare ammo goes back into the pack (refilling uses your inventory first). Turn the whole thing off with `Packs / UseAmmoFromPacks`.
+
 ## Examples
 
 **A potion kit that's always ready.** Fill a *Bag O' Potions* with 4 Health mead, 4 Stamina mead and 2 Frost resistance mead, click **Remember these amounts**, and from then on **K** at home brings it back to exactly that, whatever you used.
 
-**A quiver you never count.** *Bag O' Arrows*: 60 Wood arrows, 20 Fire arrows, 20 Poison arrows. After a boss fight, walk into the base, press **K**, and it's full again from your arrow chest.
+**A quiver you never count.** *Bag O' Arrows*: 60 Wood arrows, 20 Fire arrows, 20 Poison arrows. Just draw your bow: the arrows come out of the pack as you need them. After a boss fight, press **K** and it's full again from your inventory and your arrow chest.
 
 **Lunch for the expedition.** *Bag O' Lunch* with 10 Cooked meat, 10 Queen's jam and a few Honey sticks. Set it once; refill it every trip.
 
@@ -85,6 +91,7 @@ If something can't be filled, you're told what's missing. Packs only take from c
 | Packs | NamingStyle | BagO | `Plain` = Potion Pack, Lunchbox, Quiver, Portal Bag, Backpack |
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
+| Packs | UseAmmoFromPacks | true | Bows and crossbows use ammo from packs you're carrying |
 | Packs | PortalBagWood | 20 | Wood a Bag O' Portals holds for building a workbench (0 = none) |
 | Refill | RefillKey | K | |
 | Refill | TakeFromInventory | true | Refill also uses matching items from your own inventory (never what you're wearing) |

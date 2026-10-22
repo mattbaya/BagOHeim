@@ -19,7 +19,7 @@ namespace BagOHeim
     {
         public const string Guid = "mbaya.BagOHeim";
         public const string Name = "Bag O' Heim";
-        public const string Version = "1.1.0";
+        public const string Version = "1.2.0";
 
         private const string BasePrefab = "LeatherScraps";
         private const float AutoRefillCheckSeconds = 2f;
@@ -35,6 +35,7 @@ namespace BagOHeim
         internal static ConfigEntry<KeyboardShortcut> RefillKey;
         internal static ConfigEntry<bool> AutoRefill;
         internal static ConfigEntry<bool> TakeFromInventory;
+        internal static ConfigEntry<bool> AmmoFromPacks;
         internal static ConfigEntry<int> PortalBagWood;
 
         private Harmony _harmony;
@@ -57,6 +58,9 @@ namespace BagOHeim
             WeightFactor = Config.Bind("Packs", "ContentsWeight", 0.5f,
                 new ConfigDescription("How much a pack's contents count toward carry weight: 1 = full weight, 0.5 = half, 0 = weightless.",
                     new AcceptableValueRange<float>(0f, 1f)));
+            AmmoFromPacks = Config.Bind("Packs", "UseAmmoFromPacks", true,
+                "Bows and crossbows use arrows and bolts from packs you're carrying (such as a Bag O' Arrows). When you start to draw or shoot with none in your " +
+                "inventory, a stack is taken out of a pack into your inventory. Refilling puts spare ammo back.");
             PortalBagWood = Config.Bind("Packs", "PortalBagWood", 20,
                 new ConfigDescription("How much Wood a Bag O' Portals holds, so you can build the workbench a portal needs to be built near (0 = none). " +
                     "Applies to Portal bags you haven't set amounts for yourself.", new AcceptableValueRange<int>(0, 200)));
