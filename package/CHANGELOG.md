@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.3
+- **The pack's settings panel no longer starts at the far right and jumps.** It now moves next to the pack's contents window as soon as that window appears when you open a pack, and stays with it, instead of only after you click something.
+
 ## 1.3.2
 - **Equipping from an open pack now uses the game's own equip.** Right-clicking gear in a pack moves it into your inventory and equips it the same way as from your inventory (including the equip delay most gear has). If it can't be equipped right then, it goes back into the pack instead of staying out. What happened is written to the log (`Equip from pack: ...`).
 

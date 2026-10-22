@@ -59,15 +59,31 @@ namespace BagOHeim
 
             scale = Mathf.Clamp(scale, 0.5f, 4f);
             rect.localScale = Vector3.one * scale;
+            _scale = scale;
+            _height = height;
+            Place();
+        }
 
-            // Sit right beside the pack's contents window, as if it were part of it.
+        private static float _scale = 1f, _height;
+
+        /// <summary>
+        /// Sits the panel right beside the pack's contents window, as if it were part of it. This runs every frame while the
+        /// panel is up: when a pack is first opened the game hasn't shown the contents window yet, so the panel starts at the
+        /// edge of the screen and moves next to the window as soon as it appears (and stays with it).
+        /// </summary>
+        private static void Place()
+        {
+            if (_panel == null) return;
+            var rect = _panel.GetComponent<RectTransform>();
+            if (rect == null) return;
+
             var contents = InventoryGui.instance != null ? InventoryGui.instance.m_container : null;
             if (contents != null && contents.gameObject.activeInHierarchy)
             {
                 var corners = new Vector3[4];
                 contents.GetWorldCorners(corners);   // bottom-left, top-left, top-right, bottom-right
-                float width = Width * scale, tall = height * scale;
-                float x = corners[2].x + GapToContents * scale;
+                float width = Width * _scale, tall = _height * _scale;
+                float x = corners[2].x + GapToContents * _scale;
                 float top = corners[2].y;
                 x = Mathf.Min(x, Screen.width - width - 10f);               // stay on screen
                 top = Mathf.Clamp(top, tall + 10f, Screen.height - 10f);
@@ -76,7 +92,7 @@ namespace BagOHeim
                 return;
             }
 
-            // No contents window to sit beside: grow leftwards from the right edge, where the panel is anchored.
+            // No contents window to sit beside (yet): grow leftwards from the right edge, where the panel is anchored.
             rect.pivot = new Vector2(1f, 0.5f);
             rect.anchoredPosition = new Vector2(-30f, 0f);
         }
@@ -104,6 +120,7 @@ namespace BagOHeim
         /// <summary>Call every frame: keeps game hotkeys from firing while typing in our text boxes.</summary>
         public static void Update()
         {
+            Place();
             bool typing = (_nameField != null && _nameField.isFocused) || (_searchField != null && _searchField.isFocused);
             SetBlockInput(typing);
         }
