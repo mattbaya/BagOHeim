@@ -133,7 +133,7 @@ namespace BagOHeim
             var targets = pack.Targets;
             var results = SearchResults(pack.Kind, targets);
             int rows = Mathf.Max(1, Mathf.Min(targets.Count, MaxTargetRows));
-            float height = 250f + rows * RowHeight + (results.Count + 1) * RowHeight;
+            float height = 296f + rows * RowHeight + (results.Count + 1) * RowHeight;
 
             var gui = GUIManager.Instance;
             _panel = gui.CreateWoodpanel(GUIManager.CustomGUIFront.transform,
@@ -178,6 +178,16 @@ namespace BagOHeim
                     Refill.Message(player, area.IsValid ? "Nothing to add." : "Nothing to add. Chests are only used inside your base (near a workbench).");
                 Rebuild();
             });
+            y -= 46f;
+
+            // A locked pack is never used automatically for building, crafting or shooting.
+            Button(pack.Locked ? "Unlock this pack" : "Lock this pack", -95f, y, 210f, () =>
+            {
+                pack.Locked = !pack.Locked;
+                pack.Save(inventory);
+                Rebuild();
+            });
+            Text(pack.Locked ? "Locked: not used for building" : "Used for building", 20f, y, 15, pack.Locked ? gui.ValheimOrange : Color.gray, 190f, TextAnchor.MiddleLeft);
             y -= 46f;
 
             Text("Refills to:", -Width / 2 + 20f, y, 18, gui.ValheimBeige, 200f, TextAnchor.MiddleLeft);

@@ -61,7 +61,7 @@ namespace BagOHeim
             foreach (var item in player.GetInventory().m_inventory)
             {
                 var pack = Pack.From(item);
-                if (pack != null) _all.AddRange(EntriesOf(item, pack));
+                if (pack != null && !pack.Locked) _all.AddRange(EntriesOf(item, pack));
             }
         }
 
@@ -86,7 +86,7 @@ namespace BagOHeim
             {
                 if (taken >= amount) break;
                 var pack = Pack.From(packItem);
-                if (pack == null) continue;
+                if (pack == null || pack.Locked) continue;
 
                 var live = PackView.LiveInventoryOf(packItem);
                 var contents = live ?? pack.LoadInventory();

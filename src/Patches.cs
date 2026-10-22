@@ -188,6 +188,7 @@ namespace BagOHeim
             var pack = new Pack(item);
             string topic = pack.Name;
             if (pack.Want > 0) topic += $"  ({pack.Have}/{pack.Want})";
+            if (pack.Locked) topic += "  [locked]";
             tooltip.Set(topic, item.GetTooltip(), __instance.m_tooltipAnchor);
             return false;
         }

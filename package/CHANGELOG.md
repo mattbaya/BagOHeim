@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.3.0
+- **Lock a pack.** A new **Lock this pack** button in the pack's panel keeps a pack out of building, crafting and shooting: a locked pack's contents are never counted or taken automatically. Locked packs show `[locked]` in their tooltip. Unlock it to use it again.
 - **Build and craft straight from your packs.** Materials inside packs you're carrying now count when the game checks whether you can build or craft (a **Bag O' Portals** supplies a portal's materials, and the wood for a workbench), and when you do build, whatever your inventory can't cover is taken out of the packs. You no longer have to drag things out first (`Packs / UsePackContentsForBuilding`).
 
 ## 1.2.0

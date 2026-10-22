@@ -57,6 +57,8 @@ If something can't be filled, you're told what's missing. Packs only take from c
 
 You don't need to take materials out of a pack to use them. **When the game checks whether you can build or craft something, it counts what's in the packs you're carrying**, and when you do build, whatever your inventory can't cover is taken out of the packs. So a **Bag O' Portals** really does let you place a portal: the Finewood, Greydwarf Eyes and Surtling Cores (and the wood for a workbench) are used straight from the bag. Your inventory is used first. Turn it off with `Packs / UsePackContentsForBuilding`.
 
+**Lock a pack** to keep it out of this. Open the pack and click **Lock this pack**: a locked pack's contents are never counted or taken automatically, whether for building, crafting or shooting arrows (its tooltip shows `[locked]`). Click **Unlock this pack** to use it again. Locking doesn't stop you taking things out by hand, or refilling it.
+
 ## Equipping from a pack
 
 Open a pack and **right-click any equipment in it**: a weapon, armour, a shield, a tool, or arrows. It moves into your inventory and equips in one step, the same as right-clicking it in your inventory. This is handy for a **Bag O' Stuff** used as a spare-gear bag. You need a free slot in your inventory. (Food and potions already work straight from a pack.) Turn it off with `Packs / EquipFromPacks`.

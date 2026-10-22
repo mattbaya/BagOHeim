@@ -28,6 +28,7 @@ namespace BagOHeim
         private const string HaveKey = "BOH.Have";
         private const string WantKey = "BOH.Want";
         private const string NoTeleportKey = "BOH.NoTeleport";
+        private const string LockKey = "BOH.Locked";
 
         public readonly ItemDrop.ItemData Item;
         public readonly PackKinds.Info Info;
@@ -44,6 +45,17 @@ namespace BagOHeim
         public static Pack From(ItemDrop.ItemData item) => PackKinds.IsPack(item) ? new Pack(item) : null;
 
         public PackKind Kind => Info.Kind;
+
+        /// <summary>A locked pack is never used automatically: not for building or crafting, and not for shooting arrows.</summary>
+        public bool Locked
+        {
+            get => Item.m_customData.ContainsKey(LockKey);
+            set
+            {
+                if (value) Item.m_customData[LockKey] = "1";
+                else Item.m_customData.Remove(LockKey);
+            }
+        }
 
         public string Name
         {

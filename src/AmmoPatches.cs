@@ -47,7 +47,7 @@ namespace BagOHeim
             foreach (var packItem in inventory.m_inventory.ToList())
             {
                 var pack = Pack.From(packItem);
-                if (pack == null) continue;
+                if (pack == null || pack.Locked) continue;
 
                 var live = PackView.LiveInventoryOf(packItem);
                 var contents = live ?? pack.LoadInventory();
