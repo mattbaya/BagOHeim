@@ -34,6 +34,8 @@ namespace BagOHeim
             yield return AccessTools.Method(typeof(Inventory), nameof(Inventory.AddItem), new[] { typeof(ItemDrop.ItemData) });
             yield return AccessTools.Method(typeof(Inventory), nameof(Inventory.AddItem),
                 new[] { typeof(ItemDrop.ItemData), typeof(int), typeof(int), typeof(int), typeof(bool) });
+            // Adding to a given slot: reached by dragging, which is also guarded, but covered here too.
+            yield return AccessTools.Method(typeof(Inventory), nameof(Inventory.AddItem), new[] { typeof(ItemDrop.ItemData), typeof(Vector2i) });
         }
 
         private static bool Prefix(Inventory __instance, ItemDrop.ItemData item, ref bool __result)

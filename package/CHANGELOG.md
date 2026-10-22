@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.1
+- Packs can't go inside other packs, and that rule now also covers adding an item to a specific slot (it was already enforced when dragging).
+
 ## 1.3.0
 - **Bigger, clearer pack icons.** The icon on each pack's backpack is about half again as large and has a white outline, so it's easy to see in a small slot. `Packs / IconStyle = IconOnly` drops the backpack and shows just the outlined icon, filling the slot (restart the game to apply).
 - **Lock a pack.** A new **Lock this pack** button in the pack's panel keeps a pack out of building, crafting and shooting: a locked pack's contents are never counted or taken automatically. Locked packs show `[locked]` in their tooltip. Unlock it to use it again.

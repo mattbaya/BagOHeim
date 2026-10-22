@@ -1,7 +1,7 @@
 {
   "name": "BagOHeim",
   "author": "Svaha",
-  "version_number": "1.3.0",
+  "version_number": "1.3.1",
   "website_url": "https://github.com/mattbaya/BagOHeim",
   "description": "Bag O' Heim: packs that always hold the same things (potions, food, arrows, two portals' worth of materials, or anything you like), and refill themselves from your base's chests with one key press.",
   "dependencies": [
