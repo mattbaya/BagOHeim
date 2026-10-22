@@ -36,6 +36,7 @@ namespace BagOHeim
         internal static ConfigEntry<bool> AutoRefill;
         internal static ConfigEntry<bool> TakeFromInventory;
         internal static ConfigEntry<bool> AmmoFromPacks;
+        internal static ConfigEntry<float> PanelScale;
         internal static ConfigEntry<bool> EquipFromPacks;
         internal static ConfigEntry<int> PortalBagWood;
 
@@ -65,6 +66,9 @@ namespace BagOHeim
             EquipFromPacks = Config.Bind("Packs", "EquipFromPacks", true,
                 "Right-click a weapon, armour, arrows or other equipment in an open pack to equip it. It is moved into your inventory first, " +
                 "because the game only equips what's in your inventory.");
+            PanelScale = Config.Bind("Packs", "PanelScale", 0f,
+                new ConfigDescription("Size of the settings panel beside an open pack. 0 = match the game's own windows automatically. " +
+                    "Set a number (1 = normal, 1.5 = half as big again) if it still looks too small or too large on your screen.", new AcceptableValueRange<float>(0f, 4f)));
             PortalBagWood = Config.Bind("Packs", "PortalBagWood", 20,
                 new ConfigDescription("How much Wood a Bag O' Portals holds, so you can build the workbench a portal needs to be built near (0 = none). " +
                     "Applies to Portal bags you haven't set amounts for yourself.", new AcceptableValueRange<int>(0, 200)));

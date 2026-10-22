@@ -95,6 +95,7 @@ The arrows you take out stay in your inventory until you put them back: press **
 | Packs | NamingStyle | BagO | `Plain` = Potion Pack, Lunchbox, Quiver, Portal Bag, Backpack |
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
+| Packs | PanelScale | 0 | Size of the settings panel beside an open pack. 0 = match the game's windows automatically; 1 = normal, 1.5 = half as big again |
 | Packs | EquipFromPacks | true | Right-click equipment in an open pack to equip it |
 | Packs | UseAmmoFromPacks | true | Bows and crossbows use ammo from packs you're carrying |
 | Packs | PortalBagWood | 20 | Wood a Bag O' Portals holds for building a workbench (0 = none) |
@@ -107,6 +108,7 @@ The arrows you take out stay in your inventory until you put them back: press **
 - **The packs aren't in the workbench menu.** Check the mod is in the profile you launch from and you're at a workbench; the recipes are under the workbench's crafting list.
 - **K says something is missing.** That item isn't in a chest in your base. Check that it's inside the base's workbench range, or set `RangeMode` to `Distance` with a larger `Range`.
 - **It didn't take from a chest.** It only uses chests you could open yourself, and skips ones someone has open, gravestones, ships and carts.
+- **The settings panel looks too small (or too big).** It should scale with the game's windows. If it doesn't, set `Packs / PanelScale` (for example 1.5), and tell me your screen resolution and the game's GUI scale.
 - **A pack won't hold an item.** Packs can't hold other packs. Anything else goes in a *Bag O' Stuff*.
 - **I can't go through a portal.** A pack holding ore (or another item the game keeps out) blocks portals. Take it out, or install **PortalHeim SG1**.
 - **The server removes my packs.** The server needs the mod too, with the same version.

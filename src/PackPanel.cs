@@ -13,6 +13,10 @@ namespace BagOHeim
     internal static class PackPanel
     {
         private const float Width = 420f;
+        // Everything in the panel is drawn this much bigger than its basic layout, so the text is easy to read.
+        private const float ReadableZoom = 1.3f;
+        // The gap between the pack's contents window and this panel (before scaling).
+        private const float GapToContents = 6f;
         private const float RowHeight = 34f;
         private const int MaxTargetRows = 8;
         private const int MaxResults = 5;
@@ -29,6 +33,58 @@ namespace BagOHeim
             _search = "";
             _typedName = null;
             Rebuild();
+        }
+
+        /// <summary>
+        /// The panel is drawn in fixed pixel sizes on the mod's own canvas, but the game scales its windows with the screen
+        /// resolution and the GUI scale setting. Without matching them, the panel looks tiny next to the inventory on a
+        /// large or high-resolution screen. This scales it to match (or by the PanelScale setting), keeping it on screen.
+        /// </summary>
+        private static void MatchGameUiScale(GameObject panel, float height)
+        {
+            var rect = panel.GetComponent<RectTransform>();
+            if (rect == null) return;
+
+            float scale = BagOHeimPlugin.PanelScale.Value;
+            if (scale <= 0f)
+            {
+                float ours = CanvasScale(GUIManager.CustomGUIFront);
+                float game = InventoryGui.instance != null ? CanvasScale(InventoryGui.instance.gameObject) : 0f;
+                scale = (ours > 0f && game > 0f ? game / ours : 1f) * ReadableZoom;
+            }
+
+            // Never taller than the screen (the canvas height is in the same units as the panel).
+            var parent = GUIManager.CustomGUIFront != null ? GUIManager.CustomGUIFront.GetComponent<RectTransform>() : null;
+            if (parent != null && parent.rect.height > 0f) scale = Mathf.Min(scale, parent.rect.height * 0.95f / height);
+
+            scale = Mathf.Clamp(scale, 0.5f, 4f);
+            rect.localScale = Vector3.one * scale;
+
+            // Sit right beside the pack's contents window, as if it were part of it.
+            var contents = InventoryGui.instance != null ? InventoryGui.instance.m_container : null;
+            if (contents != null && contents.gameObject.activeInHierarchy)
+            {
+                var corners = new Vector3[4];
+                contents.GetWorldCorners(corners);   // bottom-left, top-left, top-right, bottom-right
+                float width = Width * scale, tall = height * scale;
+                float x = corners[2].x + GapToContents * scale;
+                float top = corners[2].y;
+                x = Mathf.Min(x, Screen.width - width - 10f);               // stay on screen
+                top = Mathf.Clamp(top, tall + 10f, Screen.height - 10f);
+                rect.pivot = new Vector2(0f, 1f);
+                rect.position = new Vector3(x, top, rect.position.z);
+                return;
+            }
+
+            // No contents window to sit beside: grow leftwards from the right edge, where the panel is anchored.
+            rect.pivot = new Vector2(1f, 0.5f);
+            rect.anchoredPosition = new Vector2(-30f, 0f);
+        }
+
+        private static float CanvasScale(GameObject go)
+        {
+            var canvas = go != null ? go.GetComponentInParent<Canvas>() : null;
+            return canvas != null ? canvas.rootCanvas.scaleFactor : 0f;
         }
 
         public static void Hide()
@@ -82,6 +138,8 @@ namespace BagOHeim
             var gui = GUIManager.Instance;
             _panel = gui.CreateWoodpanel(GUIManager.CustomGUIFront.transform,
                 new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-Width / 2 - 30f, 0f), Width, height, false);
+
+            MatchGameUiScale(_panel, height);
 
             float y = -28f;
             Text(pack.Name, 0f, y, 24, gui.ValheimOrange, Width - 30f, TextAnchor.MiddleCenter);
