@@ -53,6 +53,10 @@ A pack refills from two places, in this order:
 
 If something can't be filled, you're told what's missing. Packs only take from chests you could open yourself, and skip chests someone has open, gravestones, ships and carts.
 
+## Equipping from a pack
+
+Open a pack and **right-click any equipment in it**: a weapon, armour, a shield, a tool, or arrows. It moves into your inventory and equips in one step, the same as right-clicking it in your inventory. This is handy for a **Bag O' Stuff** used as a spare-gear bag. You need a free slot in your inventory. (Food and potions already work straight from a pack.) Turn it off with `Packs / EquipFromPacks`.
+
 ## Shooting from a pack
 
 You don't have to take arrows out by hand. **A bow or crossbow uses the arrows in any pack you're carrying**: the game only looks for ammo in your inventory, so when you start to draw or shoot and have none there, a stack of matching arrows or bolts moves out of your pack into your inventory (a message says what was taken), and you shoot as normal. Arrows that are already in your inventory are used first.
@@ -91,6 +95,7 @@ The arrows you take out stay in your inventory until you put them back: press **
 | Packs | NamingStyle | BagO | `Plain` = Potion Pack, Lunchbox, Quiver, Portal Bag, Backpack |
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
+| Packs | EquipFromPacks | true | Right-click equipment in an open pack to equip it |
 | Packs | UseAmmoFromPacks | true | Bows and crossbows use ammo from packs you're carrying |
 | Packs | PortalBagWood | 20 | Wood a Bag O' Portals holds for building a workbench (0 = none) |
 | Refill | RefillKey | K | |

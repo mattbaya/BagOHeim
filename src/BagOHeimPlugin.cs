@@ -36,6 +36,7 @@ namespace BagOHeim
         internal static ConfigEntry<bool> AutoRefill;
         internal static ConfigEntry<bool> TakeFromInventory;
         internal static ConfigEntry<bool> AmmoFromPacks;
+        internal static ConfigEntry<bool> EquipFromPacks;
         internal static ConfigEntry<int> PortalBagWood;
 
         private Harmony _harmony;
@@ -61,6 +62,9 @@ namespace BagOHeim
             AmmoFromPacks = Config.Bind("Packs", "UseAmmoFromPacks", true,
                 "Bows and crossbows use arrows and bolts from packs you're carrying (such as a Bag O' Arrows). When you start to draw or shoot with none in your " +
                 "inventory, a stack is taken out of a pack into your inventory. Refilling puts spare ammo back.");
+            EquipFromPacks = Config.Bind("Packs", "EquipFromPacks", true,
+                "Right-click a weapon, armour, arrows or other equipment in an open pack to equip it. It is moved into your inventory first, " +
+                "because the game only equips what's in your inventory.");
             PortalBagWood = Config.Bind("Packs", "PortalBagWood", 20,
                 new ConfigDescription("How much Wood a Bag O' Portals holds, so you can build the workbench a portal needs to be built near (0 = none). " +
                     "Applies to Portal bags you haven't set amounts for yourself.", new AcceptableValueRange<int>(0, 200)));
