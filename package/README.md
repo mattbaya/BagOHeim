@@ -27,7 +27,7 @@ No more counting arrows into a quiver or hunting for the mead before you leave. 
 | **Bag O' Portals** | portal materials, preset to **two portals' worth** plus **20 Wood** for a workbench | 4 Deer hide, 4 Leather scraps, 2 Greydwarf eyes |
 | **Bag O' Stuff** | anything | 6 Deer hide, 8 Leather scraps |
 
-Each pack looks like a backpack with the game's own icon on it, like an iron-on patch (a mead, cooked meat, an arrow, a portal, a chest). A small icon of what's inside shows in the corner of its slot, along with how full it is (e.g. `18/20`).
+Each pack looks like a backpack with the game's own icon on it, like an iron-on patch (a mead, cooked meat, an arrow, a portal, a chest), large and outlined in white so it's easy to see. Prefer just the icon? Set `Packs / IconStyle` to `IconOnly`. A small icon of what's inside shows in the corner of its slot, along with how full it is (e.g. `18/20`).
 
 ## Using a pack
 
@@ -101,6 +101,7 @@ The arrows you take out stay in your inventory until you put them back: press **
 | Packs | NamingStyle | BagO | `Plain` = Potion Pack, Lunchbox, Quiver, Portal Bag, Backpack |
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
+| Packs | IconStyle | Backpack | `Backpack` = backpack with a big outlined icon; `IconOnly` = just the outlined icon filling the slot (restart the game) |
 | Packs | PanelScale | 0 | Size of the settings panel beside an open pack. 0 = match the game's windows automatically; 1 = normal, 1.5 = half as big again |
 | Packs | UsePackContentsForBuilding | true | Materials in packs you carry count when you build or craft |
 | Packs | EquipFromPacks | true | Right-click equipment in an open pack to equip it |

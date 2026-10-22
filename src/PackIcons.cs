@@ -17,8 +17,13 @@ namespace BagOHeim
         // The patch on bag.png: centre (64, 88) from the top-left, so (64, 40) in texture rows,
         // with room for a square icon about 38 px across.
         private const int PatchCenterX = 64;
-        private const int PatchCenterY = Size - 88;
-        private const int PatchBox = 38;
+        private const int PatchCenterY = Size - 86;
+        // The icon is drawn larger than the patch itself, with a white outline, so it's easy to see in a small slot.
+        private const int PatchBox = 58;
+        private const int PatchBorder = 3;
+        // "Icon only": the game's icon fills the whole slot instead of sitting on a backpack.
+        private const int IconOnlyBox = 118;
+        private const int IconOnlyBorder = 4;
 
         private static Color[] _bag;
         private static readonly Dictionary<Texture, Texture2D> Readable = new Dictionary<Texture, Texture2D>();
@@ -41,12 +46,36 @@ namespace BagOHeim
                 int sw = Mathf.RoundToInt(rect.width), sh = Mathf.RoundToInt(rect.height);
                 var src = source.GetPixels(sx, sy, sw, sh);
 
-                var pixels = (Color[])bag.Clone();
-                float scale = Mathf.Min((float)PatchBox / sw, (float)PatchBox / sh);
+                bool iconOnly = BagOHeimPlugin.IconStyle.Value == PackIconStyle.IconOnly;
+                var pixels = iconOnly ? new Color[Size * Size] : (Color[])bag.Clone();
+                int box = iconOnly ? IconOnlyBox : PatchBox;
+                int border = iconOnly ? IconOnlyBorder : PatchBorder;
+                int centerX = iconOnly ? Size / 2 : PatchCenterX;
+                int centerY = iconOnly ? Size / 2 : PatchCenterY;
+
+                float scale = Mathf.Min((float)box / sw, (float)box / sh);
                 int dw = Mathf.Max(1, Mathf.RoundToInt(sw * scale));
                 int dh = Mathf.Max(1, Mathf.RoundToInt(sh * scale));
-                int ox = PatchCenterX - dw / 2;
-                int oy = PatchCenterY - dh / 2;
+                int ox = centerX - dw / 2;
+                int oy = centerY - dh / 2;
+
+                // The icon at its new size.
+                var icon = new Color[dw * dh];
+                for (int y = 0; y < dh; y++)
+                    for (int x = 0; x < dw; x++)
+                        icon[y * dw + x] = Sample(src, sw, sh, (x + 0.5f) / dw * sw - 0.5f, (y + 0.5f) / dh * sh - 0.5f);
+
+                // A white outline: any pixel within a few pixels of the icon's shape.
+                for (int y = -border; y < dh + border; y++)
+                {
+                    for (int x = -border; x < dw + border; x++)
+                    {
+                        int px = ox + x, py = oy + y;
+                        if (px < 0 || px >= Size || py < 0 || py >= Size) continue;
+                        if (!NearIcon(icon, dw, dh, x, y, border)) continue;
+                        pixels[py * Size + px] = Over(Color.white, pixels[py * Size + px]);
+                    }
+                }
 
                 for (int y = 0; y < dh; y++)
                 {
@@ -54,9 +83,7 @@ namespace BagOHeim
                     {
                         int px = ox + x, py = oy + y;
                         if (px < 0 || px >= Size || py < 0 || py >= Size) continue;
-
-                        var s = Sample(src, sw, sh, (x + 0.5f) / dw * sw - 0.5f, (y + 0.5f) / dh * sh - 0.5f);
-                        pixels[py * Size + px] = Over(s, pixels[py * Size + px]);
+                        pixels[py * Size + px] = Over(icon[y * dw + x], pixels[py * Size + px]);
                     }
                 }
 
@@ -71,6 +98,23 @@ namespace BagOHeim
                 BagOHeimPlugin.Log.LogWarning($"Couldn't put an icon on the backpack; using the plain game icon. {e.Message}");
                 return null;
             }
+        }
+
+        /// <summary>True if any visible pixel of the icon lies within <paramref name="radius"/> pixels of (x, y).</summary>
+        private static bool NearIcon(Color[] icon, int w, int h, int x, int y, int radius)
+        {
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                for (int dx = -radius; dx <= radius; dx++)
+                {
+                    if (dx * dx + dy * dy > radius * radius) continue;
+                    int sx = x + dx, sy = y + dy;
+                    if (sx < 0 || sx >= w || sy < 0 || sy >= h) continue;
+                    if (icon[sy * w + sx].a > 0.35f) return true;
+                }
+            }
+
+            return false;
         }
 
         private static Color[] BagPixels()

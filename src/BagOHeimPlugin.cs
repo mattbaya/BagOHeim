@@ -11,6 +11,14 @@ using UnityEngine;
 
 namespace BagOHeim
 {
+    public enum PackIconStyle
+    {
+        /// <summary>A backpack with the contents' icon on it, big and outlined in white.</summary>
+        Backpack,
+        /// <summary>Just the contents' icon, outlined in white, filling the slot.</summary>
+        IconOnly
+    }
+
     [BepInPlugin(Guid, Name, Version)]
     [BepInDependency(Jotunn.Main.ModGuid)]
     // Packs are new items: anyone who sees or holds one (and the server) needs the mod.
@@ -37,6 +45,7 @@ namespace BagOHeim
         internal static ConfigEntry<bool> TakeFromInventory;
         internal static ConfigEntry<bool> AmmoFromPacks;
         internal static ConfigEntry<bool> PackMaterials;
+        internal static ConfigEntry<PackIconStyle> IconStyle;
         internal static ConfigEntry<float> PanelScale;
         internal static ConfigEntry<bool> EquipFromPacks;
         internal static ConfigEntry<int> PortalBagWood;
@@ -70,6 +79,9 @@ namespace BagOHeim
             EquipFromPacks = Config.Bind("Packs", "EquipFromPacks", true,
                 "Right-click a weapon, armour, arrows or other equipment in an open pack to equip it. It is moved into your inventory first, " +
                 "because the game only equips what's in your inventory.");
+            IconStyle = Config.Bind("Packs", "IconStyle", PackIconStyle.Backpack,
+                "How a pack looks in your inventory. Backpack = a backpack with a big, white-outlined icon of its contents on the front. " +
+                "IconOnly = just that icon, outlined in white, filling the slot. Takes effect on next game start.");
             PanelScale = Config.Bind("Packs", "PanelScale", 0f,
                 new ConfigDescription("Size of the settings panel beside an open pack. 0 = match the game's own windows automatically. " +
                     "Set a number (1 = normal, 1.5 = half as big again) if it still looks too small or too large on your screen.", new AcceptableValueRange<float>(0f, 4f)));
