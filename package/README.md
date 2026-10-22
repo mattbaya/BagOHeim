@@ -4,7 +4,7 @@
 
 No more counting arrows into a quiver or hunting for the mead before you leave. Grab your *Bag O' Potions*, press **K** in your base, and it's full again.
 
-<!-- IMAGE: packs-in-inventory.png (the five packs in the inventory with their icons and fill counts) -->
+![Bag O' Heim packs in the inventory, with a pack's tooltip](https://raw.githubusercontent.com/mattbaya/BagOHeim/main/docs/images/packs-in-inventory.jpg)
 
 ## Contents
 
