@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.2
+- **Equipping from an open pack now uses the game's own equip.** Right-clicking gear in a pack moves it into your inventory and equips it the same way as from your inventory (including the equip delay most gear has). If it can't be equipped right then, it goes back into the pack instead of staying out. What happened is written to the log (`Equip from pack: ...`).
+
 ## 1.3.1
 - Packs can't go inside other packs, and that rule now also covers adding an item to a specific slot (it was already enforced when dragging).
 

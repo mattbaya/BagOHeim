@@ -19,6 +19,9 @@ namespace BagOHeim
             var player = __instance as Player;
             if (player == null || player != Player.m_localPlayer) return true;
 
+            if (inventory != null && inventory != player.GetInventory())
+                BagOHeimPlugin.Log.LogInfo($"Right-click in another inventory: item={item.m_shared.m_name} openPack={(PackView.OpenInventory != null)} isThePack={(inventory == PackView.OpenInventory)} equipable={item.IsEquipable()}");
+
             // Only items in the pack that's open right now.
             if (inventory == null || inventory == player.GetInventory() || inventory != PackView.OpenInventory) return true;
             if (!item.IsEquipable()) return true;
@@ -51,7 +54,27 @@ namespace BagOHeim
             var target = inventory.ContainsItem(moved)
                 ? moved
                 : inventory.m_inventory.FirstOrDefault(i => i.m_dropPrefab == moved.m_dropPrefab && i.m_worldLevel == moved.m_worldLevel);
-            if (target != null) player.EquipItem(target);
+
+            // Equip it the way the game does for an item in your inventory (which can queue the action, as it does for most gear).
+            bool done = false;
+            if (target != null)
+            {
+                player.UseItem(inventory, target, fromInventoryGui: true);
+                done = player.IsItemEquiped(target) || player.IsEquipActionQueued(target);
+            }
+
+            BagOHeimPlugin.Log.LogInfo($"Equip from pack: {item.m_shared.m_name} equipped or queued={done}");
+            if (done) return;
+
+            // Couldn't equip it right now (for example mid-attack): put it back where it was.
+            if (target != null)
+            {
+                inventory.RemoveItem(target, take);
+                pack.AddItem(item.Clone());
+                inventory.Changed();
+            }
+
+            player.Message(MessageHud.MessageType.Center, "Can't equip that right now");
         }
     }
 }
