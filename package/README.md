@@ -38,7 +38,7 @@ Each pack looks like a backpack with the game's own icon on it, like an iron-on 
   - **Edit amounts** with − / + (hold Shift for ×10) or remove items. Search for items to add, even ones you don't have yet.
   - **Refill**: tops the pack up to what it's set to hold. A fresh **Bag O' Portals** refills to two portals' worth of materials.
 
-<!-- IMAGE: pack-window.png (an open Bag O' Potions with the amounts panel) -->
+![An open Bag O' Portals: its contents on the left and its settings panel beside them, with Refill, Remember these amounts and Lock this pack](https://raw.githubusercontent.com/mattbaya/BagOHeim/main/docs/images/pack-window.jpg)
 
 ## Refilling
 
