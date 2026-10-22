@@ -53,6 +53,10 @@ A pack refills from two places, in this order:
 
 If something can't be filled, you're told what's missing. Packs only take from chests you could open yourself, and skip chests someone has open, gravestones, ships and carts.
 
+## Building and crafting from a pack
+
+You don't need to take materials out of a pack to use them. **When the game checks whether you can build or craft something, it counts what's in the packs you're carrying**, and when you do build, whatever your inventory can't cover is taken out of the packs. So a **Bag O' Portals** really does let you place a portal: the Finewood, Greydwarf Eyes and Surtling Cores (and the wood for a workbench) are used straight from the bag. Your inventory is used first. Turn it off with `Packs / UsePackContentsForBuilding`.
+
 ## Equipping from a pack
 
 Open a pack and **right-click any equipment in it**: a weapon, armour, a shield, a tool, or arrows. It moves into your inventory and equips in one step, the same as right-clicking it in your inventory. This is handy for a **Bag O' Stuff** used as a spare-gear bag. You need a free slot in your inventory. (Food and potions already work straight from a pack.) Turn it off with `Packs / EquipFromPacks`.
@@ -96,6 +100,7 @@ The arrows you take out stay in your inventory until you put them back: press **
 | Packs | Columns / Rows | 4 / 2 | Slots per pack |
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
 | Packs | PanelScale | 0 | Size of the settings panel beside an open pack. 0 = match the game's windows automatically; 1 = normal, 1.5 = half as big again |
+| Packs | UsePackContentsForBuilding | true | Materials in packs you carry count when you build or craft |
 | Packs | EquipFromPacks | true | Right-click equipment in an open pack to equip it |
 | Packs | UseAmmoFromPacks | true | Bows and crossbows use ammo from packs you're carrying |
 | Packs | PortalBagWood | 20 | Wood a Bag O' Portals holds for building a workbench (0 = none) |

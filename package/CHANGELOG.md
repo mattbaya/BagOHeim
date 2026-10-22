@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.0
+- **Build and craft straight from your packs.** Materials inside packs you're carrying now count when the game checks whether you can build or craft (a **Bag O' Portals** supplies a portal's materials, and the wood for a workbench), and when you do build, whatever your inventory can't cover is taken out of the packs. You no longer have to drag things out first (`Packs / UsePackContentsForBuilding`).
+
 ## 1.2.0
 - **Bows and crossbows use the arrows in your pack.** The game only looks for ammo in your inventory, so when you start to draw or shoot with none there, a stack of matching arrows or bolts is taken out of a carried pack (such as a Bag O' Arrows) into your inventory, and you shoot as normal. A message tells you what was taken. Press **K** or click **Refill** to put spare ammo back. Switch it off with `Packs / UseAmmoFromPacks`.
 - **The pack's settings panel is bigger and closer.** It now scales with the game's windows (on a large or high-resolution screen it used to look tiny next to the inventory), has larger text, and sits right beside the pack's contents window instead of at the edge of the screen. `Packs / PanelScale` sets a size by hand.

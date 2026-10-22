@@ -19,7 +19,7 @@ namespace BagOHeim
     {
         public const string Guid = "mbaya.BagOHeim";
         public const string Name = "Bag O' Heim";
-        public const string Version = "1.2.0";
+        public const string Version = "1.3.0";
 
         private const string BasePrefab = "LeatherScraps";
         private const float AutoRefillCheckSeconds = 2f;
@@ -36,6 +36,7 @@ namespace BagOHeim
         internal static ConfigEntry<bool> AutoRefill;
         internal static ConfigEntry<bool> TakeFromInventory;
         internal static ConfigEntry<bool> AmmoFromPacks;
+        internal static ConfigEntry<bool> PackMaterials;
         internal static ConfigEntry<float> PanelScale;
         internal static ConfigEntry<bool> EquipFromPacks;
         internal static ConfigEntry<int> PortalBagWood;
@@ -63,6 +64,9 @@ namespace BagOHeim
             AmmoFromPacks = Config.Bind("Packs", "UseAmmoFromPacks", true,
                 "Bows and crossbows use arrows and bolts from packs you're carrying (such as a Bag O' Arrows). When you start to draw or shoot with none in your " +
                 "inventory, a stack is taken out of a pack into your inventory. Refilling puts spare ammo back.");
+            PackMaterials = Config.Bind("Packs", "UsePackContentsForBuilding", true,
+                "Materials inside packs you're carrying count when you build or craft, so you don't have to take them out first " +
+                "(a Bag O' Portals can supply the portal's materials). Whatever your inventory can't cover is taken out of the packs.");
             EquipFromPacks = Config.Bind("Packs", "EquipFromPacks", true,
                 "Right-click a weapon, armour, arrows or other equipment in an open pack to equip it. It is moved into your inventory first, " +
                 "because the game only equips what's in your inventory.");

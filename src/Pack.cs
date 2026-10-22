@@ -19,7 +19,7 @@ namespace BagOHeim
     /// </summary>
     internal class Pack
     {
-        private const string ItemsKey = "BOH.Items";
+        internal const string ItemsKey = "BOH.Items";
         private const string TargetsKey = "BOH.Targets";
         private const string NameKey = "BOH.Name";
         // Cached summary so inventory slots can draw the pack without unpacking it every frame.
