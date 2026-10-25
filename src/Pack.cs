@@ -29,6 +29,8 @@ namespace BagOHeim
         private const string WantKey = "BOH.Want";
         private const string NoTeleportKey = "BOH.NoTeleport";
         private const string LockKey = "BOH.Locked";
+        private const string IconKey = "BOH.Icon";
+        private const string AutoKey = "BOH.Auto";
 
         public readonly ItemDrop.ItemData Item;
         public readonly PackKinds.Info Info;
@@ -45,6 +47,31 @@ namespace BagOHeim
         public static Pack From(ItemDrop.ItemData item) => PackKinds.IsPack(item) ? new Pack(item) : null;
 
         public PackKind Kind => Info.Kind;
+
+        /// <summary>The icon the player picked for this pack (an item or piece name), or null for the pack's usual one.</summary>
+        public string IconPrefab
+        {
+            get => Item.m_customData.TryGetValue(IconKey, out var p) && p.Length > 0 ? p : null;
+            set
+            {
+                if (string.IsNullOrEmpty(value)) Item.m_customData.Remove(IconKey);
+                else Item.m_customData[IconKey] = value;
+            }
+        }
+
+        /// <summary>The icon shown on the pack: the picked one, otherwise its kind's own.</summary>
+        public string ShownIconPrefab => IconPrefab ?? Info.IconPrefab;
+
+        /// <summary>When on, items this pack is set to hold are picked up into it first, until it has its amount.</summary>
+        public bool AutoPickup
+        {
+            get => Item.m_customData.ContainsKey(AutoKey);
+            set
+            {
+                if (value) Item.m_customData[AutoKey] = "1";
+                else Item.m_customData.Remove(AutoKey);
+            }
+        }
 
         /// <summary>A locked pack is never used automatically: not for building or crafting, and not for shooting arrows.</summary>
         public bool Locked

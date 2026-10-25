@@ -17,15 +17,45 @@ namespace BagOHeim
         // The patch on bag.png: centre (64, 88) from the top-left, so (64, 40) in texture rows,
         // with room for a square icon about 38 px across.
         private const int PatchCenterX = 64;
-        private const int PatchCenterY = Size - 86;
+        private const int PatchCenterY = Size - 76;
         // The icon is drawn larger than the patch itself, with a white outline, so it's easy to see in a small slot.
-        private const int PatchBox = 58;
-        private const int PatchBorder = 3;
+        // About as big as the bag's body, like a patch sewn across it.
+        private const int PatchBox = 92;
+        private const int PatchBorder = 4;
         // "Icon only": the game's icon fills the whole slot instead of sitting on a backpack.
         private const int IconOnlyBox = 118;
         private const int IconOnlyBorder = 4;
 
         private static Color[] _bag;
+        private static readonly Dictionary<string, Sprite> ByPrefab = new Dictionary<string, Sprite>();
+
+        /// <summary>The finished pack icon for an item or piece name (the chosen or default icon), made once and remembered.</summary>
+        public static Sprite ForPrefab(string prefab)
+        {
+            if (string.IsNullOrEmpty(prefab)) return null;
+            if (ByPrefab.TryGetValue(prefab, out var cached) && cached != null) return cached;
+
+            var game = GameSprite(prefab);
+            if (game == null) return null;
+
+            var composed = Compose(game) ?? game;
+            ReleaseCopies();
+            ByPrefab[prefab] = composed;
+            return composed;
+        }
+
+        /// <summary>The game's own icon for an item or a build piece.</summary>
+        public static Sprite GameSprite(string prefab)
+        {
+            var item = ObjectDB.instance != null ? ObjectDB.instance.GetItemPrefab(prefab) : null;
+            var drop = item != null ? item.GetComponent<ItemDrop>() : null;
+            if (drop != null && drop.m_itemData.m_shared.m_icons != null && drop.m_itemData.m_shared.m_icons.Length > 0)
+                return drop.m_itemData.m_shared.m_icons[0];
+
+            var piece = ZNetScene.instance != null ? ZNetScene.instance.GetPrefab(prefab) : null;
+            var component = piece != null ? piece.GetComponent<Piece>() : null;
+            return component != null ? component.m_icon : null;
+        }
         private static readonly Dictionary<Texture, Texture2D> Readable = new Dictionary<Texture, Texture2D>();
 
         /// <summary>The backpack with <paramref name="patch"/> on it, or null if it can't be built (caller uses the plain icon).</summary>

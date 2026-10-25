@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0
+- **The settings panel is attached to the pack's contents window.** It always opens right beside it and moves with it, so it no longer starts on the right of the screen and jumps left when clicked.
+- **Drag the settings panel** by any empty part to put it where you like; the position is remembered (`Packs / PanelOffsetX, PanelOffsetY`). Double-click an empty part to put it back.
+- **Close buttons.** An [X] on the settings panel and one on the pack's contents window close the pack without pressing Escape.
+- **Drop an item on a bag.** Drag an item from your inventory onto a pack (in the inventory grid) and it goes inside, if the pack accepts it and has room.
+- **Choose a pack's icon.** In the settings panel, *Choose icon...* opens a searchable list of the game's items (with a list of common ones to start). The icon is shown big on the bag with a white border, like an embroidered patch. *Use the default icon* undoes it. The little corner icon of what's inside is off by default (`Packs / ShowContentsIcon`).
+- **Auto-pickup per pack.** Turn on *Auto-pickup* for a pack and anything you pick up that is in its list of items goes into that pack first, until it is full. Locked packs are skipped. Turn the feature off with `Packs / AutoPickup`.
+- The *Place stacks* button is hidden while a pack is open.
+
 ## 1.3.3
 - **The pack's settings panel no longer starts at the far right and jumps.** It now moves next to the pack's contents window as soon as that window appears when you open a pack, and stays with it, instead of only after you click something.
 

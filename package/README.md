@@ -33,6 +33,9 @@ Each pack looks like a backpack with the game's own icon on it, like an iron-on 
 
 - **Right-click** a pack in your inventory (or press its hotbar key) to open it. It opens like a chest: drag items in and out.
 - Next to it, a panel lets you:
+  - **Choose icon...**: pick any item's icon from a searchable list; it shows large on the bag with a white border, like a patch.
+  - **Auto-pickup**: things you pick up that are in the pack's list go into it first, until it's full (locked packs are skipped).
+  - **Drag** the panel anywhere (double-click it to reset); there's an **X** to close it, and another on the contents window. You can also drag an item from your inventory onto a pack to put it inside.
   - **Rename** the pack. Leave the name empty to go back to the default.
   - **Remember these amounts**: fill the pack the way you like it, click this, and that's what it refills to.
   - **Edit amounts** with − / + (hold Shift for ×10) or remove items. Search for items to add, even ones you don't have yet.
@@ -103,6 +106,9 @@ The arrows you take out stay in your inventory until you put them back: press **
 | Packs | ContentsWeight | 0.5 | 1 = full weight, 0 = weightless |
 | Packs | IconStyle | Backpack | `Backpack` = backpack with a big outlined icon; `IconOnly` = just the outlined icon filling the slot (restart the game) |
 | Packs | PanelScale | 0 | Size of the settings panel beside an open pack. 0 = match the game's windows automatically; 1 = normal, 1.5 = half as big again |
+| Packs | AutoPickup | true | Allows the per-pack Auto-pickup switch to work |
+| Packs | ShowContentsIcon | false | Small icon of the contents in the corner of a pack's slot |
+| Packs | PanelOffsetX / PanelOffsetY | 0 | Where you dragged the panel (saved automatically) |
 | Packs | UsePackContentsForBuilding | true | Materials in packs you carry count when you build or craft |
 | Packs | EquipFromPacks | true | Right-click equipment in an open pack to equip it |
 | Packs | UseAmmoFromPacks | true | Bows and crossbows use ammo from packs you're carrying |

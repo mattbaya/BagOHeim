@@ -27,7 +27,7 @@ namespace BagOHeim
     {
         public const string Guid = "mbaya.BagOHeim";
         public const string Name = "Bag O' Heim";
-        public const string Version = "1.3.3";
+        public const string Version = "1.4.0";
 
         private const string BasePrefab = "LeatherScraps";
         private const float AutoRefillCheckSeconds = 2f;
@@ -47,6 +47,10 @@ namespace BagOHeim
         internal static ConfigEntry<bool> PackMaterials;
         internal static ConfigEntry<PackIconStyle> IconStyle;
         internal static ConfigEntry<float> PanelScale;
+        internal static ConfigEntry<bool> ShowContentsIcon;
+        internal static ConfigEntry<bool> AutoPickupEnabled;
+        internal static ConfigEntry<float> PanelOffsetX;
+        internal static ConfigEntry<float> PanelOffsetY;
         internal static ConfigEntry<bool> EquipFromPacks;
         internal static ConfigEntry<int> PortalBagWood;
 
@@ -82,6 +86,14 @@ namespace BagOHeim
             IconStyle = Config.Bind("Packs", "IconStyle", PackIconStyle.Backpack,
                 "How a pack looks in your inventory. Backpack = a backpack with a big, white-outlined icon of its contents on the front. " +
                 "IconOnly = just that icon, outlined in white, filling the slot. Takes effect on next game start.");
+            ShowContentsIcon = Config.Bind("Packs", "ShowContentsIcon", false,
+                "Also show a small icon of a pack's main contents in the corner of its inventory slot. Off by default, since the pack's own icon already shows what it's for.");
+            AutoPickupEnabled = Config.Bind("Packs", "AutoPickup", true,
+                "Allow packs to pick up the items they're set to hold. Each pack has its own Auto-pickup switch (off by default); this turns the feature off for all of them.");
+            PanelOffsetX = Config.Bind("Packs", "PanelOffsetX", 0f,
+                new ConfigDescription("Where you dragged the settings panel to, sideways from its usual spot beside the pack. Saved automatically; double-click the panel to reset.", new AcceptableValueRange<float>(-3000f, 3000f)));
+            PanelOffsetY = Config.Bind("Packs", "PanelOffsetY", 0f,
+                new ConfigDescription("Where you dragged the settings panel to, up or down from its usual spot. Saved automatically.", new AcceptableValueRange<float>(-3000f, 3000f)));
             PanelScale = Config.Bind("Packs", "PanelScale", 0f,
                 new ConfigDescription("Size of the settings panel beside an open pack. 0 = match the game's own windows automatically. " +
                     "Set a number (1 = normal, 1.5 = half as big again) if it still looks too small or too large on your screen.", new AcceptableValueRange<float>(0f, 4f)));

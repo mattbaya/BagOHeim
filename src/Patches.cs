@@ -225,7 +225,8 @@ namespace BagOHeim
                 if (element == null) continue;
 
                 var pack = new Pack(item);
-                var icon = IconFor(pack.MainPrefab);
+                // The pack's own icon already shows what it's for; the corner icon of its main contents is optional.
+                var icon = BagOHeimPlugin.ShowContentsIcon.Value ? IconFor(pack.MainPrefab) : null;
                 if (icon != null)
                 {
                     var image = OverlayOn(element);
@@ -270,6 +271,43 @@ namespace BagOHeim
             var sprite = drop != null ? drop.m_itemData.GetIcon() : null;
             if (sprite != null) IconCache[prefab] = sprite;
             return sprite;
+        }
+    }
+}
+
+namespace BagOHeim
+{
+    /// <summary>Each pack shows its own icon: the one the player picked, or its kind's, drawn large like a patch on the bag.</summary>
+    [HarmonyLib.HarmonyPatch(typeof(ItemDrop.ItemData), nameof(ItemDrop.ItemData.GetIcon))]
+    internal static class PackIconPatch
+    {
+        private static void Postfix(ItemDrop.ItemData __instance, ref UnityEngine.Sprite __result)
+        {
+            if (!PackKinds.IsPack(__instance)) return;
+            var sprite = PackIcons.ForPrefab(new Pack(__instance).ShownIconPrefab);
+            if (sprite != null) __result = sprite;
+        }
+    }
+
+    /// <summary>The "Place stacks" button does nothing for a pack, so it's hidden while one is open (the close button takes its corner).</summary>
+    [HarmonyLib.HarmonyPatch(typeof(InventoryGui), "UpdateContainer")]
+    internal static class HideStackButtonPatch
+    {
+        private static bool _hidden;
+
+        private static void Postfix(InventoryGui __instance)
+        {
+            if (__instance.m_stackAllButton == null) return;
+            if (PackView.IsOpen)
+            {
+                __instance.m_stackAllButton.gameObject.SetActive(false);
+                _hidden = true;
+            }
+            else if (_hidden)
+            {
+                __instance.m_stackAllButton.gameObject.SetActive(true);
+                _hidden = false;
+            }
         }
     }
 }
