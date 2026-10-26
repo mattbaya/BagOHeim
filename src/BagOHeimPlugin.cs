@@ -27,7 +27,7 @@ namespace BagOHeim
     {
         public const string Guid = "mbaya.BagOHeim";
         public const string Name = "Bag O' Heim";
-        public const string Version = "1.4.2";
+        public const string Version = "1.4.3";
 
         private const string BasePrefab = "LeatherScraps";
         private const float AutoRefillCheckSeconds = 2f;
@@ -115,7 +115,7 @@ namespace BagOHeim
             PrefabManager.OnVanillaPrefabsAvailable += AddPacks;
 
             _harmony = new Harmony(Guid);
-            _harmony.PatchAll(typeof(BagOHeimPlugin).Assembly);
+            SafePatch.All(_harmony, typeof(BagOHeimPlugin).Assembly, Log);
             Log.LogInfo($"{Name} {Version} loaded");
         }
 

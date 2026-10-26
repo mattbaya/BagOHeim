@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.3
+- Each patch is now applied on its own, so one the game has changed can't stop the others (the log names the one that failed).
+
 ## 1.4.2
 - Fix for the settings panel's buttons not responding: the panel no longer has a canvas of its own, which could stop clicks reaching it. It also writes where it ended up and each button press to the log (`Pack panel ...`) to help find any remaining problem.
 
