@@ -192,17 +192,15 @@ namespace BagOHeim
             _panel = gui.CreateWoodpanel(GUIManager.CustomGUIFront.transform,
                 new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-Width / 2 - 30f, 0f), Width, height, false);
 
-            // Above the inventory windows even though it's a child of one, still clickable, and draggable by its background.
-            var canvas = _panel.AddComponent<Canvas>();
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 200;
-            _panel.AddComponent<GraphicRaycaster>();
+            // Draggable by its background. (It's a child of the contents window, so it's drawn and clicked with the rest of the
+            // inventory screen: no canvas of its own.)
             var drag = _panel.AddComponent<PanelDrag>();
             drag.Target = _panel.GetComponent<RectTransform>();
             drag.Moved = delta => { _offset += delta; ApplyPosition(); };
             drag.Dropped = SaveOffset;
             drag.Reset = () => { _offset = Vector2.zero; ApplyPosition(); SaveOffset(); };
             Attach();
+            LogOnce();
 
             // The close button, top right.
             Button("X", Width / 2 - 34f, -24f, 44f, CloseBag);
@@ -520,11 +518,28 @@ namespace BagOHeim
             t.supportRichText = true;
         }
 
+        private static bool _logged;
+
+        /// <summary>Writes where the panel ended up the first time, so a problem with clicks can be diagnosed from the log.</summary>
+        private static void LogOnce()
+        {
+            if (_logged || _panel == null) return;
+            _logged = true;
+            var rect = _panel.GetComponent<RectTransform>();
+            BagOHeimPlugin.Log.LogInfo($"Pack panel: parent '{(rect.parent != null ? rect.parent.name : "none")}', raycaster found: " +
+                $"{_panel.GetComponentInParent<GraphicRaycaster>() != null}, event system: {UnityEngine.EventSystems.EventSystem.current != null}, " +
+                $"scale {rect.lossyScale.x:0.00}");
+        }
+
         private static void Button(string label, float x, float y, float width, System.Action onClick)
         {
             var go = GUIManager.Instance.CreateButton(label, _panel.transform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
                 new Vector2(x, y), width, 30f);
-            go.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => onClick());
+            go.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
+            {
+                BagOHeimPlugin.Log.LogInfo("Pack panel button: " + label);
+                onClick();
+            });
         }
     }
 }

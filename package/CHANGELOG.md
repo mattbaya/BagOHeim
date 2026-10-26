@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.2
+- Fix for the settings panel's buttons not responding: the panel no longer has a canvas of its own, which could stop clicks reaching it. It also writes where it ended up and each button press to the log (`Pack panel ...`) to help find any remaining problem.
+
 ## 1.4.1
 - A new Thunderstore icon: a leather backpack with an embroidered mead patch.
 
