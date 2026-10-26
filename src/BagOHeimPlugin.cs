@@ -27,7 +27,7 @@ namespace BagOHeim
     {
         public const string Guid = "mbaya.BagOHeim";
         public const string Name = "Bag O' Heim";
-        public const string Version = "1.4.3";
+        public const string Version = "1.4.4";
 
         private const string BasePrefab = "LeatherScraps";
         private const float AutoRefillCheckSeconds = 2f;

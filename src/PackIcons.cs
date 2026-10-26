@@ -13,18 +13,17 @@ namespace BagOHeim
     internal static class PackIcons
     {
         private const string BagResource = "BagOHeim.bag.png";
-        private const int Size = 128;
-        // The patch on bag.png: centre (64, 88) from the top-left, so (64, 40) in texture rows,
-        // with room for a square icon about 38 px across.
-        private const int PatchCenterX = 64;
-        private const int PatchCenterY = Size - 76;
-        // The icon is drawn larger than the patch itself, with a white outline, so it's easy to see in a small slot.
-        // About as big as the bag's body, like a patch sewn across it.
+        private const int Size = 256;
+        // The one patch on bag.png sits in the middle of its body: centre (128, 184) from the top-left. Nothing else is drawn on
+        // the bag, so the chosen icon is the only picture on it.
+        private const int PatchCenterX = 128;
+        private const int PatchCenterY = Size - 184;
+        // The icon is drawn about as wide and tall as the bag's body, with a white outline, like a patch sewn across it.
         private const int PatchBox = 92;
-        private const int PatchBorder = 4;
+        private const float PatchBorder = 6f;
         // "Icon only": the game's icon fills the whole slot instead of sitting on a backpack.
-        private const int IconOnlyBox = 118;
-        private const int IconOnlyBorder = 4;
+        private const int IconOnlyBox = 236;
+        private const float IconOnlyBorder = 7f;
 
         private static Color[] _bag;
         private static readonly Dictionary<string, Sprite> ByPrefab = new Dictionary<string, Sprite>();
@@ -79,7 +78,7 @@ namespace BagOHeim
                 bool iconOnly = BagOHeimPlugin.IconStyle.Value == PackIconStyle.IconOnly;
                 var pixels = iconOnly ? new Color[Size * Size] : (Color[])bag.Clone();
                 int box = iconOnly ? IconOnlyBox : PatchBox;
-                int border = iconOnly ? IconOnlyBorder : PatchBorder;
+                float border = iconOnly ? IconOnlyBorder : PatchBorder;
                 int centerX = iconOnly ? Size / 2 : PatchCenterX;
                 int centerY = iconOnly ? Size / 2 : PatchCenterY;
 
@@ -95,15 +94,19 @@ namespace BagOHeim
                     for (int x = 0; x < dw; x++)
                         icon[y * dw + x] = Sample(src, sw, sh, (x + 0.5f) / dw * sw - 0.5f, (y + 0.5f) / dh * sh - 0.5f);
 
-                // A white outline: any pixel within a few pixels of the icon's shape.
-                for (int y = -border; y < dh + border; y++)
+                // A clean white outline: each pixel's coverage comes from its distance to the icon's shape, so the edge is crisp but
+                // smooth (not stepped or fuzzy).
+                int reach = Mathf.CeilToInt(border) + 1;
+                for (int y = -reach; y < dh + reach; y++)
                 {
-                    for (int x = -border; x < dw + border; x++)
+                    for (int x = -reach; x < dw + reach; x++)
                     {
                         int px = ox + x, py = oy + y;
                         if (px < 0 || px >= Size || py < 0 || py >= Size) continue;
-                        if (!NearIcon(icon, dw, dh, x, y, border)) continue;
-                        pixels[py * Size + px] = Over(Color.white, pixels[py * Size + px]);
+                        float distance = DistanceToIcon(icon, dw, dh, x, y, reach);
+                        float coverage = Mathf.Clamp01(border + 0.5f - distance);
+                        if (coverage <= 0f) continue;
+                        pixels[py * Size + px] = Over(new Color(1f, 1f, 1f, coverage), pixels[py * Size + px]);
                     }
                 }
 
@@ -117,10 +120,12 @@ namespace BagOHeim
                     }
                 }
 
-                var texture = new Texture2D(Size, Size, TextureFormat.RGBA32, false);
+                // Mipmaps and trilinear filtering keep it smooth when the slot shows it smaller than it is.
+                var texture = new Texture2D(Size, Size, TextureFormat.RGBA32, true);
                 texture.SetPixels(pixels);
-                texture.filterMode = FilterMode.Bilinear;
-                texture.Apply();
+                texture.filterMode = FilterMode.Trilinear;
+                texture.wrapMode = TextureWrapMode.Clamp;
+                texture.Apply(true);
                 return Sprite.Create(texture, new Rect(0, 0, Size, Size), new Vector2(0.5f, 0.5f));
             }
             catch (Exception e)
@@ -130,21 +135,25 @@ namespace BagOHeim
             }
         }
 
-        /// <summary>True if any visible pixel of the icon lies within <paramref name="radius"/> pixels of (x, y).</summary>
-        private static bool NearIcon(Color[] icon, int w, int h, int x, int y, int radius)
+        /// <summary>The distance from (x, y) to the nearest solid pixel of the icon (a large number if none is within <paramref name="reach"/>).</summary>
+        private static float DistanceToIcon(Color[] icon, int w, int h, int x, int y, int reach)
         {
-            for (int dy = -radius; dy <= radius; dy++)
+            float best = float.MaxValue;
+            for (int dy = -reach; dy <= reach; dy++)
             {
-                for (int dx = -radius; dx <= radius; dx++)
+                int sy = y + dy;
+                if (sy < 0 || sy >= h) continue;
+                for (int dx = -reach; dx <= reach; dx++)
                 {
-                    if (dx * dx + dy * dy > radius * radius) continue;
-                    int sx = x + dx, sy = y + dy;
-                    if (sx < 0 || sx >= w || sy < 0 || sy >= h) continue;
-                    if (icon[sy * w + sx].a > 0.35f) return true;
+                    int sx = x + dx;
+                    if (sx < 0 || sx >= w) continue;
+                    if (icon[sy * w + sx].a < 0.5f) continue;
+                    float d = Mathf.Sqrt(dx * dx + dy * dy);
+                    if (d < best) best = d;
                 }
             }
 
-            return false;
+            return best;
         }
 
         private static Color[] BagPixels()

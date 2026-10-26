@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.4
+- **One icon on each bag.** The backpack picture no longer has a patch of its own; the icon in the middle (the default, or the one you picked) is the only picture on it.
+- **A crisp white outline.** The icon and its outline are now drawn twice as sharp, with a clean smooth edge instead of a fuzzy one.
+
 ## 1.4.3
 - Each patch is now applied on its own, so one the game has changed can't stop the others (the log names the one that failed).
 
