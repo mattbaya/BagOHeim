@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1
+- A new Thunderstore icon: a leather backpack with an embroidered mead patch.
+
 ## 1.4.0
 - **The settings panel is attached to the pack's contents window.** It always opens right beside it and moves with it, so it no longer starts on the right of the screen and jumps left when clicked.
 - **Drag the settings panel** by any empty part to put it where you like; the position is remembered (`Packs / PanelOffsetX, PanelOffsetY`). Double-click an empty part to put it back.
